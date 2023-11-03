@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="person1" class="com.shinhan.day02.Person">
+		<property name="name" value="홍길동" />
+		<property name="phone" value="010-4567-8965" />
+		<property name="car" ref="aa" />
+	</bean>
+
+	<bean 
+		id="aa" 
+		class="com.shinhan.day02.CarVO"
+		p:model="그랜져123" p:price="3000"
+	/>
+	
+	<!-- scope="prototype" => 같은 주소를 갖고 있는 singleton을 다른 주소(다른 객체)로 생성을 해줌 -->
+	<bean 
+		id="person2" 
+		autowire="byType"
+		scope="prototype"
+		class="com.shinhan.day02.Person" 
+		p:name="서보현"
+		p:phone="010-5655-3333"
+	>
+		<property name="major">
+			<list>
+				<value>컴퓨터 공학과</value>
+				<value>체육학과</value>
+				<value>성악과</value>
+			</list>
+		</property>
+		<property name="llist">
+			<list>
+				<ref bean="license1" />
+				<ref bean="license2" />
+			</list>
+		</property>
+		<property name="library">
+			<map>
+				<entry>
+					<key>
+						<value>first</value>
+					</key>
+					<ref bean="book1" />
+				</entry>
+				<entry>
+					<key>
+						<value>second</value>
+					</key>
+					<ref bean="book2" />
+				</entry>
+			</map>
+		</property>
+		<property name="friend">
+			<set value-type="java.lang.String">
+				<value>전화수</value>
+				<value>박지은</value>
+			</set>
+		</property>
+		<property name="myprofile">
+			<props>
+				<prop key="javaScore">100</prop>
+				<prop key="password">비밀</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean 
+		id="book1" 
+		class="com.shinhan.day02.Book" 
+		p:title="이것이 자바다."
+		p:price="30000"
+		p:kind = "IT"
+	/>
+		
+	<bean
+		id="book2"
+		class="com.shinhan.day02.Book" 
+		p:title="자바 웹을 다루는 기술"
+		p:price="50000"
+		p:kind = "IT"
+	/>
+	
+	<bean 
+		id="license1"
+		class="com.shinhan.day02.License"
+		p:title="정보처리기사"
+		p:year = "2020"
+	/>
+	<bean 
+		id="license2"
+		class="com.shinhan.day02.License"
+		p:title="운전면허"
+		p:year = "2021"
+	/>
+	<bean id="dataSource"
+			class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />
+		<property name="username" value="hr" />
+		<property name="password" value="hr" />
+	</bean>
+</beans>

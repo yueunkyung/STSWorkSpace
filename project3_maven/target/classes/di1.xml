@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="lg" class="com.shinhan.day01.LgTV"></bean>
+	<bean id="lg2" class="com.shinhan.day01.LgTV">
+		<!-- <constructor-arg name="model" value="ABC"></constructor-arg> -->
+		<constructor-arg index="0" value="ABC"></constructor-arg>
+	</bean>
+	<bean id="ss" class="com.shinhan.day01.SamsungTV"></bean>
+	<!-- bean : Spring이 객체를 bean이라고 한다. -->
+	<!-- xmlns는 xml namespace 이름 공간 
+		xmlbs에 접두사가 없는 경우 : default namespace를 사용하고 있다
+		xmlns: xsi 내 문서가 XML Scema를 따르는 문서이다.
+		스키마는 태그의 이름, 구조 등의 문법이 정해져 있다.(XSD)
+		xsi:schemaLocation : XSD파일 위치
+	-->
+
+</beans>
