@@ -11,6 +11,8 @@
 		<config>src/main/resource/di2.xml</config>
 		<config>src/main/resource/di3.xml</config>
 		<config>src/main/resource/di4_annotation.xml</config>
+		<config>src/main/resource/aop1.xml</config>
+		<config>src/main/resource/aop2.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
