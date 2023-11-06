@@ -29,8 +29,14 @@
 			<url>http://maven.jahia.org/maven2</url>
 		</repository>
 	</repositories>
-	<!-- <repositories> <repository> <id>Talan Repository</id> <url>http://nexus.talanlabs.com/content/repositories/releases/</url> 
-		</repository> </repositories> -->
+	<!--
+	<repositories>
+		<repository>
+			<id>Talan Repository</id>
+			<url>http://nexus.talanlabs.com/content/repositories/releases/</url> 
+		</repository>
+	</repositories>
+	-->
 
 	<!-- Spring Library 추가 -->
 	<dependencies>
