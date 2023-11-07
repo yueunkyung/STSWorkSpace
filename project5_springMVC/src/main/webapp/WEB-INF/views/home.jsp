@@ -9,6 +9,7 @@
 <h1>
 	Hello world!  
 </h1>
+<img src="image/first.jpg" alt="이미지" />
 <c:set var="path" value="${pageContext.request.contextPath}"></c:set>
 <form action="${path}/day1/hello3" method="post">
 	<input type="text" name="userid" value="DD" />

@@ -1,6 +1,5 @@
 package com.shinhan.controller;
 
-import org.firstzone.controller.HomeController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

@@ -8,6 +8,10 @@
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 <!-- 
+	XML : tag 이름을 확장가능한 데이터(web data 교환 목적)
+	DTD : 구조/문법, 한계
+	Schema : 구조/문법
+
 	여러 문법의 태그들이 사용된다. 구분을 위해 xml namespace를 이용한다.
 	자주 사용되는 beans 태그를 default namespace로 이용하는 것이 좋다.
  -->
@@ -18,7 +22,8 @@
 	<mvc:annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<!-- 정적 자원을 어떻게 사용할지를 기술한다. -->
+	<mvc:resources mapping="/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -27,5 +32,5 @@
 	</bean>
 	
 	<!-- 패키지 아래에 있는 Component들을 scan함을 의미 -->
-	<context:component-scan base-package="com.shinhan, org.firstzone.controller" />
+	<context:component-scan base-package="com.shinhan,org.firstzone.controller" />
 </beans>

@@ -7,10 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>타이틀은 ${title}</h1>
-	<h2>아이디는 ${custid}</h2>
-	<h2>이름은 ${custname}</h2>
-	<p>session login_id ${login_id}</p>
-	<p>session login_phone ${login_phone}</p>
+	<h1>!!!!!!!!! 회원가입 성공 !!!!!!!!!</h1>
+	<p>${user}</p>
+	<p>${user2}</p>
+	<p>${message}</p>
 </body>
 </html>

@@ -7,10 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>타이틀은 ${title}</h1>
-	<h2>아이디는 ${custid}</h2>
-	<h2>이름은 ${custname}</h2>
-	<p>session login_id ${login_id}</p>
-	<p>session login_phone ${login_phone}</p>
+	<h1>One.jsp</h1>
+	<ul>
+		<li>${myname}</li>
+		<li>${myage}</li>
+		<li>${mycar.model}</li>
+		<li>${mycar.price}</li>
+		<li>세션정보: ${login_id}</li>
+		<li>세션정보: ${login_phone}</li>
+	</ul>
 </body>
 </html>

@@ -13,7 +13,40 @@
 		<org.aspectj-version>1.9.6</org.aspectj-version>
 		<org.slf4j-version>1.7.30</org.slf4j-version>
 	</properties>
+	
+	<!-- 원격 저장소를 추가(Why? 중앙 저장소에 없는 라이브러리 다운로드를 위해서 추가) -->
+	<repositories>
+		<repository>
+			<id>oracle</id>
+			<url>http://maven.jahia.org/maven2</url>
+		</repository>
+	</repositories>
+	
 	<dependencies>
+		
+	  	<!-- Oracle Driver 라이브러리 -->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId> 
+			<version>12.1.0.1</version>
+		</dependency>
+		
+	  	<!-- spring으로 DB를 이용하기 위해 JDBC -->
+	 	 <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+	
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+			<scope>provided</scope>
+		</dependency>
+	
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
