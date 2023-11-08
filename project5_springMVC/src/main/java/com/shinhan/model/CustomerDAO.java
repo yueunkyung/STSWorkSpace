@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.shinhan.dto.CustomerVO;
@@ -16,7 +17,8 @@ import com.shinhan.util.DBUtil;
 @Repository //@Component + DAO
 public class CustomerDAO {
 	
-	@Autowired	//Å¸ÀÔÀÌ °°À¸¸é ÀÚµ¿À¸·Î ÁÖÀÔÇÑ´Ù.(injection)
+	@Autowired	//Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.(injection)
+	@Qualifier("dataSource")
 	DataSource ds;
 	
 	Connection conn;
@@ -24,7 +26,7 @@ public class CustomerDAO {
 	ResultSet rs;
 	int result;
 
-	//»ç¿ëÀÚ°¡ Á¸ÀçÇÏ´ÂÁö?
+	//ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½?
 	public CustomerVO loginCheck(String custid, String pwd) {
 		String sql = "select * from customer where cust_id = ? and password = ?";
 		CustomerVO cust = null;
@@ -50,7 +52,7 @@ public class CustomerDAO {
 		return cust;
 	}
 
-	//È¸¿ø°¡ÀÔ
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public int register(CustomerVO customer) {
 		String sql = "insert into customer(cust_id,cust_name,email,password,phone) values(?,?,?,?,?)";
 		

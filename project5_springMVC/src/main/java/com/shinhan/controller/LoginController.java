@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,8 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import com.shinhan.dto.CustomerVO;
 import com.shinhan.dto.UserVO;
 import com.shinhan.model.CustomerService;
+
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/auth")
@@ -86,9 +89,13 @@ public class LoginController {
 		logger.info("type='hidden' address: {}", address);
 		return "redirect:/firstzone/two"; 
 	}
-
+/*
 	@RequestMapping(value="/signUp.do", method=RequestMethod.POST)
-	public String signUp(@ModelAttribute("user") UserVO user, @RequestParam(value="address", required=false) String address, Model model) { //UserVO는 default 생성자, setter
+	public String signUp(@ModelAttribute("user") UserVO user
+						, @RequestParam(value="address"
+						, required=false) String address
+						, Model model) { 
+		//UserVO는 default 생성자, setter
 		//@RequestParam : request.getParameter("")
 		//default가 required = true 즉, 필수이다. 파라메터가 없으면 오류이다.
 		//@ModelAttribute Model에 저장하여 view에서 사용하도록 한다.
@@ -98,6 +105,16 @@ public class LoginController {
 		model.addAttribute("user2", user);
 		model.addAttribute("message", "회원가입 성공 !!!!");
 
+		return "auth/signupResult"; //forward하기
+	}
+*/
+	@PostMapping(value="/signUp.do")
+	public String signUp(CustomerVO cust, Model model) {
+		//logger.info는 문자만 입력 가능하여, 객체는 toString() 처리해야함.
+		logger.info("param값 확인"+cust.toString());
+		
+		int result = custService.register(cust);
+		model.addAttribute("message", result>0?"회원가입 성공":"회원가입 실패");
 		return "auth/signupResult"; //forward하기
 	}
 
