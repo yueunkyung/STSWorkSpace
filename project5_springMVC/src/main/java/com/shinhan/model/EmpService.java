@@ -11,13 +11,15 @@ import com.shinhan.dto.EmpVO;
 @Service("eService")
 public class EmpService {
 	@Autowired
-	EmpDAO dao;
+	EmpDAOMybatis dao;
 
 	public int empInsert(EmpVO emp) {
 		return dao.empInsert(emp);		
 	}
 
 	public int empDelete(int empid) {
+		System.out.println(empid+"76?&&?==============================================");
+	
 		return dao.empDelete(empid);
 	}
 	
@@ -37,7 +39,7 @@ public class EmpService {
 		return dao.selectAll(deptid, jobid, sal, hiredate);
 	}
 
-	public List<EmpVO> selectManagerAll() {
-		return dao.selectManagerAll();		
-	}
+//	public List<EmpVO> selectManagerAll() {
+//		return dao.selectManagerAll();		
+//	}
 }

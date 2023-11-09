@@ -98,7 +98,7 @@ public class EmpController {
 		model.addAttribute("emp", eService.selectById(empid));
 		model.addAttribute("dlist", dService.selectAll());
 		model.addAttribute("jlist", jdao.selectAll());
-		model.addAttribute("mlist", eService.selectManagerAll());
+		//model.addAttribute("mlist", eService.selectManagerAll());
 		return "emp/empDetail";
 	}
 	
@@ -121,7 +121,7 @@ public class EmpController {
 	public void empInsertDisplay(Model model) {
 		model.addAttribute("dlist", dService.selectAll());
 		model.addAttribute("jlist", jdao.selectAll());
-		model.addAttribute("mlist", eService.selectManagerAll());
+		//model.addAttribute("mlist", eService.selectManagerAll());
 	}
 	
 	@PostMapping("/empInsert.do")

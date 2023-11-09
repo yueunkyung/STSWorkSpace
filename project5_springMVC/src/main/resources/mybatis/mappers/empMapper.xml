@@ -3,47 +3,50 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.firstzone.emp">
-	<select id="selectManagerAll" resultType="empvo">
-		select * from employees
-		where employee_id in(select DISTINCT manager_id from employees)
+	<select id="selectManageAll" resultType="empvo">
+		 select *  from employees 
+		 where employee_id in (    
+		    select distinct manager_id from employees )
 	</select>
-	<select id="selectAll" resultType="map">
-		select *
-		from employees
-		where (0=#{deptid} or department_id =#{deptid})
-		and job_id like #{jobid}
-		and
-		salary >= #{sal}
-		and hire_date >= #{hiredate}
-		order by 1
+	<select id="selectAll" parameterType="map" resultType="empvo">
+				select *  
+				  from employees  
+				  where (0=#{deptid} or department_id=#{deptid})  
+				  and job_id like #{job}  
+				  and salary >=#{sal}  
+				  and hire_date >=#{hdate}  
+				  order by 1
 	</select>
 	<select id="selectById" parameterType="int" resultType="empvo">
-		select * from employees where employee_id = #{aa}
+      	select * from employees where employee_id = #{aa}
 	</select>
-	<select id="empUpdate" parameterType="empvo">
-		update employees
-		set
-		first_name=#{first_name},
-		last_name=#{last_name},
-		email=#{email},
-		phone_number=#{phone_number},
-		hire_date=#{hire_date},
-		job_id=#{job_id},
-		salary=#{salary},
-		commission_pct=#{commission_pct},
-		manager_id=#{manager_id},
-		department_id=#{department_id}
-		where employee_id=#{employee_id}
-	</select>
-	<select id="empDelete" parameterType="int" resultType="empvo">
-		delete
-		from employees where employee_id = #{aa}
-	</select>
-	<select id="empInsert" parameterType="empvo">
-		insert into
-		employees(employee_id, first_name,
-		last_name,email,phone_number,hire_date, job_id ,salary,
-		commission_pct, manager_id,department_id)
-		VALUES(#{employee_id},#{first_name},#{last_name},#{email},#{phone_number},#{hire_date},#{job_id},#{salary},#{commission_pct},#{manager_id},#{department_id})
-	</select>
+	<update id="empUpdate" parameterType="empvo">
+	     update employees 
+	     set first_name=#{first_name},
+	     last_name=#{last_name},
+	     email=#{email},
+	     phone_number=#{phone_number},
+	     hire_date=#{hire_date},
+	     job_id=#{job_id},
+	     salary=#{salary},
+	     commission_pct=#{commission_pct},
+	     manager_id=#{manager_id},
+	     department_id=#{department_id} 
+	     where employee_id=#{employee_id}
+	</update>
+	<delete id="empDelete" parameterType="int">
+	     delete from employees where employee_id = #{aa}
+	</delete>
+	<insert id="empInsert" parameterType="empvo">
+	     insert into employees ( 
+		     employee_id, first_name,
+			 last_name, email,
+			 phone_number, hire_date,
+			 job_id,salary, commission_pct, manager_id, department_id) 
+			 values(#{employee_id}, #{first_name},
+			 #{last_name}, #{email},
+			 #{phone_number}, #{hire_date},
+			 #{job_id},#{salary}, #{commission_pct}, #{manager_id}, 
+			 #{department_id})
+	</insert>
 </mapper>

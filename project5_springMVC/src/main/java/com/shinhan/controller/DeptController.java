@@ -37,7 +37,7 @@ public class DeptController {
 	@GetMapping("/deptDetail.do")
 	public String selectById(int deptid, Model model) {
 		model.addAttribute("dept", dService.selectById(deptid));
-		model.addAttribute("mlist", eService.selectAll(0, "%", 0, "1900-01-01"));
+		model.addAttribute("mlist", eService.selectAll(deptid, "%", 0, "1900-01-01"));
 		
 		return "dept/deptDetail";
 	}
