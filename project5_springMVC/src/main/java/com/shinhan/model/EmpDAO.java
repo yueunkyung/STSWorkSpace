@@ -26,9 +26,6 @@ import com.shinhan.util.DBUtil;
 // @Repository => @Component + DAO
 @Repository
 public class EmpDAO {
-	@Autowired //1.field
-	@Qualifier("dataSource")
-	DataSource ds;
 
 	Connection conn;
 	Statement st;
@@ -37,6 +34,9 @@ public class EmpDAO {
 
 	//자동으로 주입한다.(Spring이 Bean을 등록하고 주입)
 	// 1.field, 2.생성자, 3.setter
+	@Autowired //1.field
+	@Qualifier("dataSource")
+	DataSource ds;
 	
 	//2.생성자
 	/*

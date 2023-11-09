@@ -1,20 +1,19 @@
-<%@page import="com.shinhan.dto.DeptVO"%>
-<%@page import="java.util.List"%>
-<%@page import="com.shinhan.model.DeptService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<%
-List<DeptVO> dlist = (List<DeptVO>) request.getAttribute("dlist");
-%>
+<%@ taglib prefix="c" uri ="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>부서 목록</title>
+<script>
+	var message="${deptMessage}";
+	if(message!="") alert(message);
+</script>
 </head>
 <body style="margin: 50px 0 100px;">
-<button onclick="location.href='deptInsert.do';">부서등록</button>
+<%@include file="../auth/logout.jsp" %>
+<button onclick="location.href='${appPath}/dept/deptInsert.do';">부서등록</button>
 <br>
 	<h1>부서 목록</h1>
 	<table border="1">
@@ -26,24 +25,20 @@ List<DeptVO> dlist = (List<DeptVO>) request.getAttribute("dlist");
 			<th>매니저번호</th>
 			<th>위치코드</th>
 		</tr>
-		<%
-		for (DeptVO dept : dlist) {
-		%>
-		<tr>
-			<td>
-				<button onclick="location.href='deptDetail.do?deptid=<%=dept.getDepartment_id()%>';">상세보기</button>
-			</td>
-			<td>
-				<button onclick="location.href='deptDelete.do?deptid=<%=dept.getDepartment_id()%>';">삭제</button>
-			</td>
-			<td><%=dept.getDepartment_id()%></td>
-			<td><%=dept.getDepartment_name()%></td>
-			<td><%=dept.getManager_id()%></td>
-			<td><%=dept.getLocation_id()%></td>
-		</tr>
-		<%
-		}
-		%>
+		<c:forEach items="${dlist}" var="dept">
+			<tr>
+				<td>
+					<button onclick="location.href='${appPath}/dept/deptDetail.do?deptid=${dept.department_id}';">상세보기</button>
+				</td>
+				<td>
+					<button onclick="location.href='${appPath}/dept/deptDelete.do?deptid=${dept.department_id}';">삭제</button>
+				</td>
+				<td>${dept.department_id}</td>
+				<td>${dept.department_name}</td>
+				<td>${dept.manager_id!=0?dept.manager_id:""}</td>
+				<td>${dept.location_id}</td>
+			</tr>
+		</c:forEach>
 	</table>
 </body>
 </html>

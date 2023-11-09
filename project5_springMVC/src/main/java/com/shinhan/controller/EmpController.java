@@ -47,10 +47,13 @@ public class EmpController {
 		logger.info("salary: {}", salary);
 		logger.info("hiredate: {}", hiredate);
 		
+		//int a = 10/0;
+		
 		if(deptid == null) deptid = 0;
 		if(jobid == null) jobid = "%";
 		if(salary == null) salary = 0; 
 		if(hiredate == null) hiredate = "1900-01-01";	
+		
 		
 		/*
 		Map<String, ?> redirectData = RequestContextUtils.getInputFlashMap(request);

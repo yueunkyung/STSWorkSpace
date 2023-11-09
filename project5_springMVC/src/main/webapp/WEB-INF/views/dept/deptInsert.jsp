@@ -12,23 +12,21 @@ List<EmpVO> mlist = (List<EmpVO>)request.getAttribute("mlist");
 <title>신규 부서 등록</title>
 </head>
 <body>
+<%@include file="../auth/logout.jsp" %>
 <h1>부서입력</h1>
 <!-- (DeptVO)request.getAttribute("dept").getDepartment_id() -->
-<form action="deptInsert.do" method="post">
+<form action="${appPath}/dept/deptInsert.do" method="post">
 	부서 번호 : <input type="number" name="department_id" /><br>
 	부서 이름 : <input type="text" name="department_name" /><br>
 	매니저 : <select name="manager_id">
-					<%
-					for (EmpVO emp : mlist) {
-					%>
-					<option value="<%=emp.getEmployee_id()%>">
-						<%=emp.getFirst_name()%>
-						<%=emp.getLast_name()%>
+				
+				<c:forEach items="${mlist}" var="emp">
+					<option ${dept.manager_id == emp.employee_id? "selected":""} value="${emp.employee_id}">
+						${emp.first_name}, ${emp.last_name}, ${dept.manager_id}
 					</option>
-					<%
-					}
-					%>
-			</select><br>
+				</c:forEach>
+			</select>
+			<br>
 	지역 번호 : <input type="number" name="location_id" /><br>
 	<input type="submit" value="신규 부서 등록" />
 </form>

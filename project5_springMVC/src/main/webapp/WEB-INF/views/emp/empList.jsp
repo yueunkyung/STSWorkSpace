@@ -153,18 +153,18 @@ tbody {
 			var event = event || window.event;
 
 			for ( let prop in event) {
-				console.log("prop : ", prop, "========event[prop] : ",
-						event[prop]);
+				//console.log("prop : ", prop, "========event[prop] : ", event[prop]);
 			}
 
 			var salary = Number(document.querySelector("#salary").value);
-			alert(salary);
+			//alert(salary);
 			var nodeList = document
-					.querySelectorAll("tbody tr td:nth-child(9)");
+					.querySelectorAll("tbody tr td:nth-child(7)");
 			var bgColor = "yellow";
 
 			nodeList.forEach(function(ele) {
-				if (Number(ele.textContent.trim().startsWith(salary)))
+				var su = Number(ele.textContent.replace(/[^0-9]/g,''));
+				if (su >= salary)
 					ele.className = bgColor;
 				else {
 					// ele.className = white;
@@ -236,65 +236,12 @@ tbody {
 						</c:forEach>
 					</select>
 			급여(이상) : <input type="number" id="sal" value="10000" />
-			입사일 :  <input type="date" id="hiredate" value="2000-11-08" />
+			입사일 :  <input type="date" id="hiredate" value="2000-11-08" disabled />
+			<input type="checkbox" id="datechk" onclick="call_chk()" checked /> 전체일자
 			<button onclick="call_ajax();">조건 조회</button>
 		</div>
 		<%-- here --%>
-		<div id="here">
-		<h1>직원목록</h1>
-<table>
-	<thead>
-		<tr>
-			<th>순서</th>
-			<th>employee_id</th>
-			<th>first_name</th>
-			<th>last_name</th>
-			<th>email</th>
-			<th>phone_number</th>
-			<th>salary</th>
-			<th>job_id</th>
-			<th>hire_date</th>
-			<th>commition_pct</th>
-			<th>manager_id</th>
-			<th>department_id</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		<c:forEach items="${emplist}" var="emp" varStatus="status">
-			<tr seq="${status.count}">
-				<td class="aa">${status.count}</td>
-				<td><a href="${cpath}/emp/empDetail.do?empid=${emp.employee_id}">
-						${emp.employee_id}
-				</a></td>
-				<td fname="${emp.first_name}">${emp.first_name}</td>
-				<td>${emp.last_name}</td>
-				<td>${emp.email}</td>
-				<td>${emp.phone_number}</td>
-				<td>
-					<fmt:formatNumber groupingUsed="true" value="${emp.salary}"></fmt:formatNumber>
-				</td>
-				<td>${fn:toLowerCase(emp.job_id)}</td>
-				<td>${emp.hire_date}</td>
-				<td>${emp.commission_pct}</td>
-				<td>${emp.manager_id}</td>
-				<td>${emp.department_id}</td>
-				<td>
-					<button type="button" class="btn btn-success"
-					onclick="location.href='${cpath}/emp/empDelete.do?empid=${emp.employee_id}'"
-					>삭제(method="get")</button>
-					 
-					<form action="${cpath}/emp/empDelete.do" method="get">
-						<input type="hidden" name="empid" value="${emp.employee_id}" />
-						<input type="submit" value="삭제(method='post')" class="btn btn-primary" />
-					</form>
-					
-				</td>
-			</tr>
-		</c:forEach>
-	</tbody>
-</table>
-		</div>
+		<div id="here"></div>
 		<%-- //here --%>
 	</div>
 	<%-- //container --%>
@@ -302,19 +249,37 @@ tbody {
 		var msg = "${message}";
 		if(msg!="") alert(msg);
 		
+		$(function(){
+			call_ajax();
+		});
+
+		function call_chk() {
+			var chk =$("#datechk").prop("checked");
+			if(chk) {
+				$("#hiredate").attr("disabled", true);
+				
+			}else {
+				$("#hiredate").attr("disabled", false);
+			}
+		}
+		
 		function call_ajax() {
 			var paramObj = {};
 			paramObj.deptid = $("#deptSelect").val();
 			paramObj.jobid = $("#jobSelect").val();
 			paramObj.salary = $("#sal").val();
+		  	var chk = $("#datechk").prop("checked");
+			if(chk) {
+				paramObj.hiredate = $("#hiredate").val("1900-01-01");
+			} 
 			paramObj.hiredate = $("#hiredate").val();
-			console.log(paramObj);
+			
 			
 			$.ajax({
 				url: "${cpath}/emp/empListAjax.do",
 				data: paramObj,
 				success: function(respnseData) {
-					console.log("respnseData",respnseData);
+					//console.log("respnseData",respnseData);
 					$("#here").html(respnseData);
 				},
 				error:function() {

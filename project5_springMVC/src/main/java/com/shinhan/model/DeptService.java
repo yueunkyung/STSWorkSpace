@@ -16,32 +16,41 @@ import com.shinhan.dto.DeptVO;
 public class DeptService {
 	
 	@Autowired
-	DeptDAO dao;
+	DeptDAOMybatis dao;
 	
 	//특정Location
 	public List<DeptVO> selectByLocation(int loc) {
 		return dao.selectByLocation(loc);		
 	}
+	
 	//특정Manager
 	public List<DeptVO> selectByManager() {
 		return dao.selectByManager();		
 	}
+	
 	//특정부서
 	public DeptVO selectById(int deptid) {
-		System.out.println("DeptService DeptService DeptService selectById.....");
 		return dao.selectById(deptid);
 	}
+	
 	//all
 	public List<DeptVO> selectAll() {
 		return dao.selectAll();	
 	}
+	
 	public int insertDept(DeptVO dept) {		
 		return dao.insertDept(dept);
 	}
+	
 	public int updateDept(DeptVO dept) {		
 		return dao.updateDept(dept);
 	}
+	
 	public int deleteDept(int deptid) {
 		return dao.deleteDept(deptid);
+	}
+
+	public List<DeptVO> selectByName(String dname) {
+		return dao.selectByName(dname);
 	}
 }

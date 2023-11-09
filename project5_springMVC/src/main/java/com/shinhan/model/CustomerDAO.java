@@ -17,8 +17,8 @@ import com.shinhan.util.DBUtil;
 @Repository //@Component + DAO
 public class CustomerDAO {
 	
-	@Autowired	//Ÿ���� ������ �ڵ����� �����Ѵ�.(injection)
-	@Qualifier("dataSource")
+	@Autowired //타입이 같으면 자동으로 주입(injection)
+	@Qualifier("dataSource") //이름으로 찾아서 주입
 	DataSource ds;
 	
 	Connection conn;
@@ -26,7 +26,7 @@ public class CustomerDAO {
 	ResultSet rs;
 	int result;
 
-	//����ڰ� �����ϴ���?
+	//사용자 존재하는지?
 	public CustomerVO loginCheck(String custid, String pwd) {
 		String sql = "select * from customer where cust_id = ? and password = ?";
 		CustomerVO cust = null;
@@ -51,8 +51,8 @@ public class CustomerDAO {
 		}
 		return cust;
 	}
-
-	//ȸ������
+	
+	//회원가입
 	public int register(CustomerVO customer) {
 		String sql = "insert into customer(cust_id,cust_name,email,password,phone) values(?,?,?,?,?)";
 		
