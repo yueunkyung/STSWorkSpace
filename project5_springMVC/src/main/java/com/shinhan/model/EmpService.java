@@ -1,8 +1,10 @@
 package com.shinhan.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.shinhan.dto.EmpVO;
@@ -11,7 +13,9 @@ import com.shinhan.dto.EmpVO;
 @Service("eService")
 public class EmpService {
 	@Autowired
-	EmpDAOMybatis dao;
+	@Qualifier("empDAOMybatis")
+	EmpDAOInterface dao;
+	//EmpDAOMybatis dao;
 
 	public int empInsert(EmpVO emp) {
 		return dao.empInsert(emp);		
@@ -35,7 +39,7 @@ public class EmpService {
 		return dao.selectById(empid) ;
 	}
 
-	public List<EmpVO> selectAll(int deptid, String jobid, int sal, String hiredate) {
+	public List<EmpVO> selectAll(ArrayList<Integer> deptid, String jobid, int sal, String hiredate) {
 		return dao.selectAll(deptid, jobid, sal, hiredate);
 	}
 

@@ -9,13 +9,24 @@
 		    select distinct manager_id from employees )
 	</select>
 	<select id="selectAll" parameterType="map" resultType="empvo">
-				select *  
-				  from employees  
-				  where (0=#{deptid} or department_id=#{deptid} or department_id is null)  
-				  and job_id like #{job}  
-				  and salary >=#{sal} or salary is null  
-				  and hire_date >=#{hdate}  
-				  order by 1
+		select * from employees
+		where (salary >= #{salary} or salary is null)  
+		 	<if test="deptid[0] != 0">
+		 		 and department_id in
+		 		<foreach collection="deptid" index="idx" item="dept" open="(" close=")" separator="," >
+		 			#{dept}
+		 		</foreach>
+		 	</if>
+		 	<if test="jobid != '%'.toString()">and job_id = #{jobid}</if>
+		 	<if test="hiredate != ''">and hire_date >= #{hiredate}</if>
+		order by 1
+		  <!--  
+			 where (0=#{deptid} or department_id=#{deptid} or department_id is null)  
+			 and job_id like #{jobid}  
+			 and salary >=#{sal} or salary is null  
+			 and hire_date >=#{hiredate}  
+			 order by 1
+		  -->
 	</select>
 	<select id="selectById" parameterType="int" resultType="empvo">
       	select * from employees where employee_id = #{aa}

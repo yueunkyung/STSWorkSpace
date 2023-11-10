@@ -1,5 +1,7 @@
 package com.shinhan.controller;
 
+import java.util.ArrayList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +38,10 @@ public class DeptController {
 
 	@GetMapping("/deptDetail.do")
 	public String selectById(int deptid, Model model) {
+		ArrayList<Integer> dlist=new ArrayList<Integer>();
+		dlist.add(deptid);
 		model.addAttribute("dept", dService.selectById(deptid));
-		model.addAttribute("mlist", eService.selectAll(deptid, "%", 0, "1900-01-01"));
+		model.addAttribute("mlist", eService.selectAll(dlist, "%", 0, "1900-01-01"));
 		
 		return "dept/deptDetail";
 	}
@@ -54,8 +58,9 @@ public class DeptController {
 	
 	@GetMapping("/deptInsert.do")
 	public String insertGet(Model model) {
-//		model.addAttribute("mlist", eService.selectAll(-1, "%", 0, "1900-01-01"));
-		model.addAttribute("mlist",eService.selectAll(0,"%",0,"1999-1-1"));
+		ArrayList<Integer> dlist=new ArrayList<Integer>();
+		dlist.add(0);
+		model.addAttribute("mlist",eService.selectAll(dlist, "%", 0, "1999-01-01"));
 		return "dept/deptInsert";
 	}
 	

@@ -25,7 +25,7 @@ import com.shinhan.util.DBUtil;
 //<bean id="empDAO" class="com.shinhan.model.EmpDAO">
 // @Repository => @Component + DAO
 @Repository
-public class EmpDAO {
+public class EmpDAODataSource implements EmpDAOInterface {
 
 	Connection conn;
 	Statement st;
@@ -251,6 +251,38 @@ public class EmpDAO {
 		emp.setPhone_number(rs.getString("phone_number"));
 		emp.setSalary(rs.getInt("salary"));
 		return emp;
+	}
+
+	@Override
+	public List<EmpVO> selectAll(ArrayList<Integer> deptid, String jobid, int sal, String hiredate) {
+		List<EmpVO> emplist = new ArrayList<>();
+		String sql = "select * "
+				+ " from employees "
+				+ " where (0=? or department_id = ?)"
+				+ " and job_id like ?"
+				+ " and salary >= ?"
+				+ " and hire_date >= ?"
+				+ " order by 1";
+		try {
+			conn = ds.getConnection();
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, deptid.get(0));
+			pst.setInt(2, deptid.get(0));
+			pst.setString(3, jobid);
+			pst.setInt(4, sal);
+			pst.setString(5, hiredate);
+			
+			rs = pst.executeQuery();
+			while(rs.next()) {
+				EmpVO emp = makeEmp(rs);
+				emplist.add(emp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbDisConnection(conn, st, rs);
+		}
+		return emplist;
 	}
 
 }

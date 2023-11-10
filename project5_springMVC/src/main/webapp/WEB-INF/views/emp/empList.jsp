@@ -222,10 +222,10 @@ tbody {
 		<br>
 		<button onclick="location.href='${cpath}/emp/empInsert.do';">신규직원등록</button>
 		<div class="search_box"> 
-			부서선택 : <select id="deptSelect">
+			부서선택 : <select id="deptSelect" multiple="multiple">
 						<option value="0">모든 부서</option>
 						<c:forEach items="${dlist}" var="dept">
-							<option  ${select_deptid == dept.department_id?selected:""} value="${dept.department_id}">
+							<option  ${select_deptid!=null && select_deptid[0] == dept.department_id?selected:""} value="${dept.department_id}">
 								${dept.department_name}
 							</option>
 						</c:forEach>
@@ -239,7 +239,7 @@ tbody {
 							</option>
 						</c:forEach>
 					</select>
-			급여(이상) : <input type="number" id="sal" value="${select_salary}" />
+			급여(이상) : <input type="number" id="sal" value="${select_salary==null?0:select_salary}" />
 			입사일 :  <input type="date" id="hiredate" value="${select_hiredate}" disabled />
 			<input type="checkbox" id="datechk" onclick="call_chk()" checked /> 전체일자
 			<button onclick="call_ajax();">조건 조회</button>
@@ -272,7 +272,14 @@ tbody {
 			paramObj.deptid = $("#deptSelect").val();
 			paramObj.jobid = $("#jobSelect").val();
 			paramObj.salary = $("#sal").val();
-		  	var chk = $("#datechk").prop("checked");
+		
+			if(paramObj.deptid.length == 0) {
+				paramObj.deptid.push(0);
+			}
+			
+			console.log("paramObj", paramObj);
+			
+			var chk = $("#datechk").prop("checked");
 			if(chk) {
 				paramObj.hiredate = $("#hiredate").val("1900-01-01");
 			} 

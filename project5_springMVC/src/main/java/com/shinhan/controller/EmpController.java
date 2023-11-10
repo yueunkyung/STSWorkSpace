@@ -1,5 +1,7 @@
 package com.shinhan.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -36,26 +38,9 @@ public class EmpController {
 	JobDAO jdao;
 	
 	@GetMapping("/empList.do")
-	public String emplistDisplay(
-			@RequestParam(value="deptid", required = false)Integer deptid,
-			@RequestParam(value="jobid", required = false) String jobid,
-			@RequestParam(value="salary", required = false) Integer salary,
-			@RequestParam(value="hiredate", required = false) String hiredate,
-			Model model, HttpServletRequest request) {
-		//int a = 10/0;
-		 
-		if(deptid==null) {
-			deptid = 0;
-		}
-		if(jobid == null) jobid = "%";
-		if(salary == null) salary = 0; 
-		if(hiredate == null) hiredate = "1900-01-01";
-		
-//		logger.info("deptid: {}", deptid);
-//		logger.info("jobid: {}", jobid);
-//		logger.info("salary: {}", salary);
-//		logger.info("hiredate: {}", hiredate);
-		
+	public String emplistDisplay(Model model) {
+		//int a = 10/0; //에러테스트
+
 		/*
 		Map<String, ?> redirectData = RequestContextUtils.getInputFlashMap(request);
 		if(redirectData!=null) {
@@ -68,14 +53,15 @@ public class EmpController {
 		
 		model.addAttribute("dlist", dService.selectAll());
 		model.addAttribute("jlist", jdao.selectAll());
-		model.addAttribute("emplist", eService.selectAll(deptid, jobid, salary, hiredate));
+		//model.addAttribute("emplist", eService.selectAll(deptid, jobid, salary, hiredate));
 		return "emp/empList";
 	}
 
 	//Ajax로 옴
 	@GetMapping("/empListAjax.do")
 	public String emplistDisplay2(
-			@RequestParam(value="deptid", required = false)Integer deptid,
+			@RequestParam(value="deptid[]", required = false)
+			ArrayList<Integer> deptid,
 			@RequestParam(value="jobid", required = false) String jobid,
 			@RequestParam(value="salary", required = false) Integer salary,
 			@RequestParam(value="hiredate", required = false) String hiredate,

@@ -1,5 +1,6 @@
 package com.shinhan.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ import com.shinhan.dto.EmpVO;
 // @Repository => @Component + DAO
 
 @Repository
-public class EmpDAOMybatis {
+public class EmpDAOMybatis implements EmpDAOInterface {
 
 	@Autowired
 	SqlSession sqlSession;
@@ -59,13 +60,13 @@ public class EmpDAOMybatis {
 		return emp;
 	}
 
-	public List<EmpVO> selectAll(int deptid, String job, int sal, String hdate) {
+	public List<EmpVO> selectAll(ArrayList<Integer> deptid, String jobid, int sal, String hiredate) {
 		
-		Map<String,Object> mapData = new HashMap<>();
+		Map<String, Object> mapData = new HashMap<>();
 		mapData.put("deptid", deptid);
-		mapData.put("job", job);
-		mapData.put("sal", sal);
-		mapData.put("hdate", hdate);
+		mapData.put("jobid", jobid);
+		mapData.put("salary", sal);
+		mapData.put("hiredate", hiredate);
 		List<EmpVO> emplist = sqlSession.selectList(namespace + "selectAll", mapData);
 		logger.info("조회조건:{}...결과:{}건", mapData, emplist.size());
 		return emplist;
