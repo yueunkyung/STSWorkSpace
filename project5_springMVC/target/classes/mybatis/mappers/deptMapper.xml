@@ -18,13 +18,13 @@
 	<select id="selectByName" parameterType="string" resultType="deptvo">
 		select * from departments where department_name like #{aa}
 	</select>
-	<select id="deleteDept" parameterType="int">
+	<delete id="deleteDept" parameterType="int">
 		delete from departments where department_id = #{deptid}
-	</select>
-	<select id="updateDept" parameterType="deptvo">
+	</delete>
+	<update id="updateDept" parameterType="deptvo">
 		update departments set department_name=#{department_name}, manager_id= #{manager_id}, location_id=#{location_id} where department_id =#{department_id}
-	</select>
-	<select id="insertDept" parameterType="deptvo">
+	</update>
+	<insert id="insertDept" parameterType="deptvo">
 		insert into departments(department_id, department_name, manager_id, location_id) 
 			values(#{department_id},#{department_name},
 			<if test="manager_id==0">
@@ -34,5 +34,5 @@
 				#{manager_id}
 			</if>
 			,#{location_id})
-	</select>
+	</insert>
 </mapper>

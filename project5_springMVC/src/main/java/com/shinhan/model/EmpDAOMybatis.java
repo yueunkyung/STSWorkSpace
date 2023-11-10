@@ -71,7 +71,7 @@ public class EmpDAOMybatis {
 		return emplist;
 	}
 
-	public List<EmpVO> selectManageAll() {
+	public List<EmpVO> selectManagerAll() {
 		List<EmpVO> emplist = sqlSession.selectList(namespace + "selectManageAll");
 		logger.info("결과:{}건", emplist.size());
 		return emplist;

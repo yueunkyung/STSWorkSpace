@@ -39,7 +39,7 @@ public class EmpService {
 		return dao.selectAll(deptid, jobid, sal, hiredate);
 	}
 
-//	public List<EmpVO> selectManagerAll() {
-//		return dao.selectManagerAll();		
-//	}
+	public List<EmpVO> selectManagerAll() {
+		return dao.selectManagerAll();
+	}
 }

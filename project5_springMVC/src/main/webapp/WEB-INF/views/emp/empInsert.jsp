@@ -111,7 +111,7 @@ ul li input, ul li select {
 </style>
 </head>
 
-<body class="dis_flex">
+<body>
 	<%@include file="../auth/logout.jsp" %>
 	<div id="container">
 		<h1>~직원등록~</h1>
@@ -120,7 +120,7 @@ ul li input, ul li select {
 				<legend>직원의 기본사항</legend>
 				<ul>
 					<li><span>1.EMPLOYEE_ID:</span><input name="employee_id"
-						type="number" min="207" max="500" autofocus /></li>
+						type="number" min="207" max="500" autofocus required /></li>
 					<li><span>2.FIRST_NAME:</span><input name="first_name"
 						type="text" placeholder="이름/first name" /></li>
 					<li><span>3.LAST_NAME:</span><input name="last_name"
@@ -135,8 +135,8 @@ ul li input, ul li select {
 					<li><span>5.PHONE_NUMBER:</span><input name="phone_number"
 						type="tel" placeholder="***.***.****" /></li>
 					<li><span>6.HIRE_DATE:</span><input name="hire_date"
-						type="date" /></li>
-					<li><span>7.JOB_ID:</span> <select name="job_id">
+						type="date" required /></li>
+					<li><span>7.JOB_ID:</span> <select name="job_id" required>
 						<c:forEach items="${jlist}" var="job">
 							<option value="${job.job_id}">
 								${job.job_title}--${job.max_salary}
@@ -148,6 +148,7 @@ ul li input, ul li select {
 					<li><span>9.COMMISSION_PCT:</span><input name="commission_pct"
 						type="number" step="0.01" /></li>
 					<li><span>10.MANAGER_ID:</span> <select name="manager_id">
+							<option value="0">매니저없음</option>
 							<c:forEach items="${mlist}" var="manager">
 								<option value="${manager.employee_id}">
 									${manager.first_name}, ${manager.last_name}
@@ -156,6 +157,7 @@ ul li input, ul li select {
 					</select></li>
 					<li><span>11.DEPARTMENT_ID:</span> <select
 						name="department_id">
+						<option value="0">부서없음</option>
 						<c:forEach items="${dlist}" var="dept">
 							<option value="${dept.department_id}">
 								${dept.department_name}

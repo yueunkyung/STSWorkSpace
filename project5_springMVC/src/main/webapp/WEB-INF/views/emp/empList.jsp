@@ -225,18 +225,22 @@ tbody {
 			부서선택 : <select id="deptSelect">
 						<option value="0">모든 부서</option>
 						<c:forEach items="${dlist}" var="dept">
-							<option value="${dept.department_id}">${dept.department_name}</option>
+							<option  ${select_deptid == dept.department_id?selected:""} value="${dept.department_id}">
+								${dept.department_name}
+							</option>
 						</c:forEach>
 					</select>
 					
 			직책선택 : <select id="jobSelect">
 						<option value="%">모든 직책</option>
 						<c:forEach items="${jlist}" var="job">
-							<option value="${job.job_id}">${job.job_title}</option>
+							<option value="${job.job_id}" ${select_jobid == job.job_id?selected:""}>
+								${job.job_title}
+							</option>
 						</c:forEach>
 					</select>
-			급여(이상) : <input type="number" id="sal" value="10000" />
-			입사일 :  <input type="date" id="hiredate" value="2000-11-08" disabled />
+			급여(이상) : <input type="number" id="sal" value="${select_salary}" />
+			입사일 :  <input type="date" id="hiredate" value="${select_hiredate}" disabled />
 			<input type="checkbox" id="datechk" onclick="call_chk()" checked /> 전체일자
 			<button onclick="call_ajax();">조건 조회</button>
 		</div>

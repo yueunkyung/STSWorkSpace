@@ -43,7 +43,13 @@
 				<td>${emp.manager_id}</td>
 				<td>${emp.department_id}</td>
 				<td>
-					<button  onclick="location.href='${cpath}/emp/empDelete.do?empId=${emp.employee_id}'" >삭제하기</button>
+					<button type="button" class="btn btn-success"
+					onclick="location.href='${cpath}/emp/empDelete.do?empid=${emp.employee_id}'"
+					>삭제(method="get")</button>
+					<form action="${cpath}/emp/empDelete.do" method="get">
+						<input type="hidden" name="empid" value="${emp.employee_id}" />
+						<input type="submit" value="삭제(method='post')" class="btn btn-primary" />
+					</form>
 				</td>
 			</tr>
 		</c:forEach>

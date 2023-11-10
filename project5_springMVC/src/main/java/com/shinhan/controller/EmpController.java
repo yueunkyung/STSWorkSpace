@@ -1,6 +1,7 @@
 package com.shinhan.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,19 +42,19 @@ public class EmpController {
 			@RequestParam(value="salary", required = false) Integer salary,
 			@RequestParam(value="hiredate", required = false) String hiredate,
 			Model model, HttpServletRequest request) {
-		
-		logger.info("deptid: {}", deptid);
-		logger.info("jobid: {}", jobid);
-		logger.info("salary: {}", salary);
-		logger.info("hiredate: {}", hiredate);
-		
 		//int a = 10/0;
-		
-		if(deptid == null) deptid = 0;
+		 
+		if(deptid==null) {
+			deptid = 0;
+		}
 		if(jobid == null) jobid = "%";
 		if(salary == null) salary = 0; 
-		if(hiredate == null) hiredate = "1900-01-01";	
+		if(hiredate == null) hiredate = "1900-01-01";
 		
+//		logger.info("deptid: {}", deptid);
+//		logger.info("jobid: {}", jobid);
+//		logger.info("salary: {}", salary);
+//		logger.info("hiredate: {}", hiredate);
 		
 		/*
 		Map<String, ?> redirectData = RequestContextUtils.getInputFlashMap(request);
@@ -70,24 +71,31 @@ public class EmpController {
 		model.addAttribute("emplist", eService.selectAll(deptid, jobid, salary, hiredate));
 		return "emp/empList";
 	}
-	
+
+	//Ajax로 옴
 	@GetMapping("/empListAjax.do")
 	public String emplistDisplay2(
 			@RequestParam(value="deptid", required = false)Integer deptid,
 			@RequestParam(value="jobid", required = false) String jobid,
 			@RequestParam(value="salary", required = false) Integer salary,
 			@RequestParam(value="hiredate", required = false) String hiredate,
-			Model model, HttpServletRequest request) {
+			Model model, HttpServletRequest request, HttpSession session) {
 		
 		logger.info("deptid: {}", deptid);
 		logger.info("jobid: {}", jobid);
 		logger.info("salary: {}", salary);
 		logger.info("hiredate: {}", hiredate);
 		
-		if(deptid == null) deptid = 0;
-		if(jobid == null) jobid = "%";
-		if(salary == null) salary = 0; 
-		if(hiredate == null) hiredate = "1900-01-01";	
+		session.setAttribute("select_deptid", deptid);
+		session.setAttribute("select_jobid", jobid);
+		session.setAttribute("select_salary", salary);
+		session.setAttribute("select_hiredate", hiredate);
+		
+//		if(deptid == null) deptid = 0;
+//		if(jobid == null) jobid = "%";
+//		if(salary == null) salary = 0; 
+//		if(hiredate == null) hiredate = "1900-01-01";
+		
 		model.addAttribute("emplist", eService.selectAll(deptid, jobid, salary, hiredate));
 		
 		return "emp/empList_ajax";
@@ -98,7 +106,8 @@ public class EmpController {
 		model.addAttribute("emp", eService.selectById(empid));
 		model.addAttribute("dlist", dService.selectAll());
 		model.addAttribute("jlist", jdao.selectAll());
-		//model.addAttribute("mlist", eService.selectManagerAll());
+//		model.addAttribute("mlist", eService.selectAll(0, "%", 0, "1990-01-01"));
+		model.addAttribute("mlist", eService.selectManagerAll());
 		return "emp/empDetail";
 	}
 	
@@ -121,12 +130,12 @@ public class EmpController {
 	public void empInsertDisplay(Model model) {
 		model.addAttribute("dlist", dService.selectAll());
 		model.addAttribute("jlist", jdao.selectAll());
-		//model.addAttribute("mlist", eService.selectManagerAll());
+		model.addAttribute("mlist", eService.selectManagerAll());
 	}
 	
 	@PostMapping("/empInsert.do")
 	public String empInsertPost(EmpVO emp, RedirectAttributes attr) {
-		logger.info("수정할 직원 정보"+ emp.toString());
+		logger.info("입력할 직원 정보"+ emp.toString());
 		int result = eService.empInsert(emp);
 		attr.addFlashAttribute("message", result>0?"입력 성공":"입력 실패");
 		
@@ -134,11 +143,15 @@ public class EmpController {
 	}
 	
 	//method가 생략시 모두 가능
-	@RequestMapping(value="/empDelete.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String empDelete(int empid, RedirectAttributes attr) {
-		
+	@RequestMapping(value = "/empDelete.do", method= {RequestMethod.GET,
+			RequestMethod.POST})
+	public String empDeleteGet(int empid, RedirectAttributes attr) {
+		logger.info("삭제할 직원정보 : "+empid);
+		int result = eService.empDelete(empid);
+		attr.addFlashAttribute("message",result>0?"삭제성공":"삭제실패");
 		return "redirect:/emp/empList.do";
 	}
+	
 
 	/*
 	@GetMapping("/empDelete.do")

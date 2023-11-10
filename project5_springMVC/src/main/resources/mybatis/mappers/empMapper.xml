@@ -11,9 +11,9 @@
 	<select id="selectAll" parameterType="map" resultType="empvo">
 				select *  
 				  from employees  
-				  where (0=#{deptid} or department_id=#{deptid})  
+				  where (0=#{deptid} or department_id=#{deptid} or department_id is null)  
 				  and job_id like #{job}  
-				  and salary >=#{sal}  
+				  and salary >=#{sal} or salary is null  
 				  and hire_date >=#{hdate}  
 				  order by 1
 	</select>
@@ -46,7 +46,20 @@
 			 values(#{employee_id}, #{first_name},
 			 #{last_name}, #{email},
 			 #{phone_number}, #{hire_date},
-			 #{job_id},#{salary}, #{commission_pct}, #{manager_id}, 
-			 #{department_id})
+			 #{job_id},#{salary}, #{commission_pct},
+			 <if test="manager_id == 0">
+				 null,
+			 </if>
+			 <if test="manager_id != 0">
+				 #{manager_id}, 
+			 </if>
+			 
+			 <if test="department_id == 0">
+				 null
+			 </if>
+			 <if test="department_id != 0">
+				 #{department_id}
+			 </if>
+		 )
 	</insert>
 </mapper>
