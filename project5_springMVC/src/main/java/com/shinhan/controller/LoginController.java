@@ -48,44 +48,44 @@ public class LoginController {
 	
 	@RequestMapping(value="/loginCheck.do", method=RequestMethod.POST)
 	public String loginPost(@RequestParam("cust_id") String id, String password, HttpServletRequest request, HttpSession session, RedirectAttributes attr) {
-		logger.info("¿äÃ»ÁÖ¼Ò: {}", request.getRequestURI());
-		logger.info("¿äÃ»¹æ½Ä: {}", request.getMethod());
-		logger.info("¿äÃ»ÇÑ »ç¶÷ ip: {}", request.getRemoteAddr());
-		logger.info("ÆÄ¶ó¸ÞÅÍpassword: {}", request.getParameter("password"));
+		logger.info("ï¿½ï¿½Ã»ï¿½Ö¼ï¿½: {}", request.getRequestURI());
+		logger.info("ï¿½ï¿½Ã»ï¿½ï¿½ï¿½: {}", request.getMethod());
+		logger.info("ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ ip: {}", request.getRemoteAddr());
+		logger.info("ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½password: {}", request.getParameter("password"));
 		logger.info("cust_id: {}", id);
 		logger.info("password: {}", password);
 
 		CustomerVO cust = custService.loginCheck(id, password);
 		
-		//¼¼¼Ç¿¡ ÀúÀåÇÏ±â
+		//ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		session.setAttribute("loginCust", cust);
 		session.setAttribute("login_id", id);
 		session.setAttribute("login_phone", password);
 		
 		if(cust==null) {
-			attr.addFlashAttribute("message","·Î±×ÀÎ ½ÇÆÐ....... ´Ù½Ã ÀÔ·ÂÇÏ±â");
-			return "redirect:/auth/login.do"; //Àç¿äÃ»ÇÏ±â À§ÇØ redirect: ¸¦ ºÙÀÎ´Ù. ´Ù½Ã ·Î±×ÀÎ
+			attr.addFlashAttribute("message","ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½....... ï¿½Ù½ï¿½ ï¿½Ô·ï¿½ï¿½Ï±ï¿½");
+			return "redirect:/auth/login.do"; //ï¿½ï¿½ï¿½Ã»ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ redirect: ï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½. ï¿½Ù½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½
 		} else {
-			return "redirect:/firstzone/two"; //¾÷¹«ÇÏ·¯ °£´Ù.
+			return "redirect:/board"; //ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		}
 	}
 	/*
 	@RequestMapping(value="/signUp.do", method=RequestMethod.POST)
-	public String signUp(UserVO user, @RequestParam(value="address", required=false) String address) { //UserVO´Â default »ý¼ºÀÚ, setter
+	public String signUp(UserVO user, @RequestParam(value="address", required=false) String address) { //UserVOï¿½ï¿½ default ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, setter
 		//@RequestParam : request.getParameter("")
-		//default°¡ required = true Áï, ÇÊ¼öÀÌ´Ù. ÆÄ¶ó¸ÞÅÍ°¡ ¾øÀ¸¸é ¿À·ùÀÌ´Ù.
-		logger.info("ÀÔ·ÂµÈ »ç¿ëÀÚ Á¤º¸: {}", user);
+		//defaultï¿½ï¿½ required = true ï¿½ï¿½, ï¿½Ê¼ï¿½ï¿½Ì´ï¿½. ï¿½Ä¶ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
+		logger.info("ï¿½Ô·Âµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {}", user);
 		logger.info("type='hidden' address: {}", address);
 		return "redirect:/firstzone/two"; 
 	}
 	*/
 	
 	@RequestMapping(value="/signUp2.do", method=RequestMethod.POST)
-	public String signUp2(@RequestParam Map<String, String> user, @RequestParam(value="address", required=false) String address) { //UserVO´Â default »ý¼ºÀÚ, setter
-		//@RequestParam : request.getParameter(""), mapÀÏ¶§ »ý·«ºÒ°¡
-		//default°¡ required = true Áï, ÇÊ¼öÀÌ´Ù. ÆÄ¶ó¸ÞÅÍ°¡ ¾øÀ¸¸é ¿À·ùÀÌ´Ù.
+	public String signUp2(@RequestParam Map<String, String> user, @RequestParam(value="address", required=false) String address) { //UserVOï¿½ï¿½ default ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, setter
+		//@RequestParam : request.getParameter(""), mapï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½
+		//defaultï¿½ï¿½ required = true ï¿½ï¿½, ï¿½Ê¼ï¿½ï¿½Ì´ï¿½. ï¿½Ä¶ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 		System.out.println(user.get("username"));
-		logger.info("ÀÔ·ÂµÈ »ç¿ëÀÚ Á¤º¸: {}", user);
+		logger.info("ï¿½Ô·Âµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {}", user);
 		logger.info("type='hidden' address: {}", address);
 		return "redirect:/firstzone/two"; 
 	}
@@ -95,34 +95,34 @@ public class LoginController {
 						, @RequestParam(value="address"
 						, required=false) String address
 						, Model model) { 
-		//UserVO´Â default »ý¼ºÀÚ, setter
+		//UserVOï¿½ï¿½ default ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, setter
 		//@RequestParam : request.getParameter("")
-		//default°¡ required = true Áï, ÇÊ¼öÀÌ´Ù. ÆÄ¶ó¸ÞÅÍ°¡ ¾øÀ¸¸é ¿À·ùÀÌ´Ù.
-		//@ModelAttribute Model¿¡ ÀúÀåÇÏ¿© view¿¡¼­ »ç¿ëÇÏµµ·Ï ÇÑ´Ù.
-		logger.info("ÀÔ·ÂµÈ »ç¿ëÀÚ Á¤º¸: {}", user);
+		//defaultï¿½ï¿½ required = true ï¿½ï¿½, ï¿½Ê¼ï¿½ï¿½Ì´ï¿½. ï¿½Ä¶ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
+		//@ModelAttribute Modelï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ viewï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+		logger.info("ï¿½Ô·Âµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {}", user);
 		logger.info("type='hidden' address: {}", address);
 		
 		model.addAttribute("user2", user);
-		model.addAttribute("message", "È¸¿ø°¡ÀÔ ¼º°ø !!!!");
+		model.addAttribute("message", "È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ !!!!");
 
-		return "auth/signupResult"; //forwardÇÏ±â
+		return "auth/signupResult"; //forwardï¿½Ï±ï¿½
 	}
 */
 	@PostMapping(value="/signUp.do")
 	public String signUp(CustomerVO cust, Model model) {
-		//logger.info´Â ¹®ÀÚ¸¸ ÀÔ·Â °¡´ÉÇÏ¿©, °´Ã¼´Â toString() Ã³¸®ÇØ¾ßÇÔ.
-		logger.info("param°ª È®ÀÎ"+cust.toString());
+		//logger.infoï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½, ï¿½ï¿½Ã¼ï¿½ï¿½ toString() Ã³ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½.
+		logger.info("paramï¿½ï¿½ È®ï¿½ï¿½"+cust.toString());
 		
 		int result = custService.register(cust);
-		model.addAttribute("message", result>0?"È¸¿ø°¡ÀÔ ¼º°ø":"È¸¿ø°¡ÀÔ ½ÇÆÐ");
-		return "auth/signupResult"; //forwardÇÏ±â
+		model.addAttribute("message", result>0?"È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½":"È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+		return "auth/signupResult"; //forwardï¿½Ï±ï¿½
 	}
 
 	@RequestMapping("/test1.do")
 	public ModelAndView test1() {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("hobby","°øºÎ");
-		mv.addObject("myname","°»À¯");
+		mv.addObject("hobby","ï¿½ï¿½ï¿½ï¿½");
+		mv.addObject("myname","ï¿½ï¿½ï¿½ï¿½");
 		mv.setViewName("firstzone/one");
 		
 		return mv;
@@ -131,17 +131,17 @@ public class LoginController {
 	@RequestMapping("/test2.do")
 	public ModelAndView test2() {
 		ModelAndView mv = new ModelAndView("firstzone/one");
-		mv.addObject("hobby","°øºÎ2");
-		mv.addObject("myname","°»À¯2");
+		mv.addObject("hobby","ï¿½ï¿½ï¿½ï¿½2");
+		mv.addObject("myname","ï¿½ï¿½ï¿½ï¿½2");
 		
 		return mv;
 	}
 	
 	@RequestMapping("/test3.do")
 	public String test3(RedirectAttributes attr) {
-		//Àç¿äÃ»ÇÏ¸é¼­ Á¤º¸¸¦ °¡Á®°¡°íÀÚ ÇÑ´Ù.
-		attr.addFlashAttribute("message", "´Ù½Ã ·Î±×ÀÎÀÌ ÇÊ¿äÇÕ´Ï´Ù.");
-		attr.addFlashAttribute("message2", "Á¤È®ÇÑ °ªÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+		//ï¿½ï¿½ï¿½Ã»ï¿½Ï¸é¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+		attr.addFlashAttribute("message", "ï¿½Ù½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Õ´Ï´ï¿½.");
+		attr.addFlashAttribute("message2", "ï¿½ï¿½È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
 		return "redirect:/auth/login.do";
 	}
 }

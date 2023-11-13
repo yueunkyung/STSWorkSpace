@@ -24,25 +24,33 @@
 	</repositories>
 
 	<dependencies>
+		<!-- JSON 기능 이용하기 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.12.2</version>
+		</dependency>
+
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId><!-- Runtime 시 weaving되면서 메서드 시간을 trace해준다. -->
+			<artifactId>aspectjweaver</artifactId><!-- Runtime 시 weaving되면서 메서드 시간을 
+				trace해준다. -->
 			<version>${org.aspectj-version}</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjtools</artifactId><!-- Aspectj 컴파일 -->
 			<version>${org.aspectj-version}</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>

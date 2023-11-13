@@ -37,7 +37,7 @@
 	<!-- transaction pointcut지정 -->
 	<aop:config>
 		<aop:advisor advice-ref="txAdvice"
-			pointcut="execution(* update(..))" />
+			pointcut="execution(* updateTrans(..))" />
 	</aop:config>
 
 	<bean id="dataSource"
