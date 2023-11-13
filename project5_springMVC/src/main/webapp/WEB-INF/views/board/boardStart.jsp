@@ -153,7 +153,7 @@ function boradList(){
 						<td>\${item.title}</td>
 						<td>\${item.content}</td>
 						<td>\${item.writer}</td>
-						<td>\${item.regdate}</td>
+						<td>\${new Date(item.regdate).toISOString().split("T")[0]}</td>
 						<td>\${item.viewcnt}</td>
 					</tr>
 				`;

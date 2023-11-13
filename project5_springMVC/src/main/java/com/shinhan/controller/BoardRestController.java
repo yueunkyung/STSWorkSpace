@@ -32,9 +32,11 @@ public class BoardRestController {
 	
 	Logger logger = LoggerFactory.getLogger(BoardRestController.class);
 	
+	//consumes는 클라이언트가 서버에게 보내는 데이터 타입을 명시한다.
+	//produces는 서버가 클라이언트에게 반환하는 데이터 타입을 명시한다.
 	@PutMapping(value="/board/boardUpdate.do"
-			, consumes = "application/json"
-			, produces = "text/plain;charset=utf-8"
+			, consumes = "application/json"	//들어오는 것
+			, produces = "text/plain;charset=utf-8"	//나가는(소비하는) 것
 			)
 	public String boardUpdate(@RequestBody BoardVO board) {
 		int result = bService.update(board);
