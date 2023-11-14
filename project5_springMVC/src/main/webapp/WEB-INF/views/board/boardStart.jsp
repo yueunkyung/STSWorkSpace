@@ -22,6 +22,18 @@
 }
 </style>
 <script>
+function boardDelete(bno) {
+	//alert("delete 할 예정"+bno);
+	$.ajax({
+		url:"${appPath}/board/boardDelete.do/" + bno,
+		type: "delete",
+		success: function(resData) {
+			alert(resData);
+			boradList();
+		}
+	});
+}
+
 function getFormatDate(arg) {
 	if(arg == null) return "";
 	var date = new Date(arg);
@@ -61,6 +73,8 @@ function boardDetail(bno) {
 		url: "${appPath}/board/boardDetail.do/" + bno,
 		type: "get",
 		success: function(board) {
+			console.log(loginUser, board.writer);
+			console.log(board.pic);
 			var disabled="";
 			if(loginUser != board.writer) disabled="disabled";
 			
@@ -71,12 +85,23 @@ function boardDetail(bno) {
 			} else {
 				// updateD = "";
 			}
+			var imgFragment="";
+			if(board.pic!=null) {
+				imgFragment = `
+					<div class="mb-3 mt-3" style="max-height:400px;height:100%;display:flex;justify-content:center;">
+				  		<img src = "${appPath}/uploads/\${board.pic}" alt="\${board.pic}" style="display:block; height:100%;"/>
+				  	</div>
+				`;
+			}
 			
-			var output=`
+			var output = `
 				<div class="container mt-3">
 				  <h2>게시글 수정</h2>
 					  <form id="myfrm">
-					    <div class="mb-3 mt-3">
+						`+ imgFragment;
+						
+
+			output += `<div class="mb-3 mt-3">
 					      <label for="bno">번호:</label>
 					      <input type="text" class="form-control" id="bno" name="bno"
 					     	value="\${board.bno}"
@@ -118,6 +143,8 @@ function boardDetail(bno) {
 					    </div>
 					    <div>
 						    <input type="button" class="btn btn-primary" onclick="boardUpdate(event);" \${disabled} value="수정" />
+						    <input type="button" class="btn btn-primary"
+						    	onclick="boardDelete(\${bno});" \${disabled} value="삭제" />
 					    </div>
 					</form>
 				</div>
@@ -141,6 +168,7 @@ function boradList(){
 						<td>작성자</td>
 						<td>작성일</td>
 						<td>조회수</td>
+						<td>이미지</td>
 					</tr>
 			`;
 			$.each(responseData, function(index, item) {
@@ -155,6 +183,7 @@ function boradList(){
 						<td>\${item.writer}</td>
 						<td>\${new Date(item.regdate).toISOString().split("T")[0]}</td>
 						<td>\${item.viewcnt}</td>
+						<td>\${item.pic!=null?"이미지" : ""}</td>
 					</tr>
 				`;
 			});
@@ -176,12 +205,35 @@ function boradInsert(){
 	});	
 }
 function boardInsertPost() {
-	console.log("boardInsertPost!!!!!!!!!!!!!!!!!!!!!!!!");
+	console.log($("#myfrm"));
+	
+	var formData = new FormData($("#myfrm")[0]);
+	for(let key of formData.keys()) {
+		console.log(key, ": ", formData.get(key));
+	}
+
+	//파일 업로드
+	// 필수 주석 - 문자로 가지 말라고 적는 필수 옵션들임.
+	$.ajax({
+		 url:"${appPath}/board/insertPost.do",
+		 type:"post",
+		 enctype: 'multipart/form-data',// 필수
+		 processData: false,//필수)
+		 cache: false,
+		 contentType: false, //필수)
+		 //contentType:"application/json;charset=utf-8",
+		 data: formData ,
+		 success:function(responseData){ alert(responseData); }
+	});
+	//processData : data 파라미터로 전달된 데이터를 jQuery 내부적으로 query string 으로 만드는데, 파일 전송의 경우 이를 하지 않음으로 변경
+	//contentType : default 값이 "application/x-www-form-urlencoded; charset=UTF-8" 인데, "multipart/form-data" 로 전송이 되게 false
+
+	/* 파일 업로드 없는 기본
 	var obj={
 		"title" : $("#title").val(),
 		"content" : $("#content").val()
 	};	
-
+	
 	$.ajax({
 		url:"${appPath}/board/insertPost.do",
 		type:"post",
@@ -189,8 +241,10 @@ function boardInsertPost() {
 		contentType:"application/json; charset=utf-8",
 		success: function(responseData) {
 			alert(responseData);
+			boradList();
 		}
 	});
+	*/
 }
 </script>
 </head>

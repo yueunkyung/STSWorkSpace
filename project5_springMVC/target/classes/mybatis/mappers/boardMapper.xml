@@ -23,7 +23,7 @@
 		where bno = #{bno}
 	</update>
 	<insert id="insert" parameterType="boardvo">
-		insert into board(BNO,TITLE,CONTENT,WRITER)
-		values(seq_board.nextval,#{title},#{content},#{writer})
+		insert into board(BNO,TITLE,CONTENT,WRITER, pic)
+		values(seq_board.nextval,#{title},#{content},#{writer},#{pic})
 	</insert>
 </mapper>

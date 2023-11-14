@@ -107,6 +107,11 @@ ul li input, ul li select {
 	<div id="container">
 		<h1>~직원 상세보기~</h1>
 		<form name="empform" action="${appPath}/emp/empDetail.do" method="post">
+			<c:if test="${emp.pic!=null}">
+				<div style="max-height:300px;height:100%;display:flex; justify-content:center;">
+					<img src="${appPath}/uploads/${emp.pic}" alt="${emp.pic}" style="display:block;">
+				</div>
+			</c:if>
 			<fieldset>
 				<legend>직원의 기본사항</legend>
 				<ul>

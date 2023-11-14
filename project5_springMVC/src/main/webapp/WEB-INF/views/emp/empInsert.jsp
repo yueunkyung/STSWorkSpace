@@ -115,7 +115,12 @@ ul li input, ul li select {
 	<%@include file="../auth/logout.jsp" %>
 	<div id="container">
 		<h1>~직원등록~</h1>
-		<form name="empform" action="empInsert.do" method="post">
+		<form name="empform" action="empInsert.do" method="post" enctype="multipart/form-data">
+			<div>
+				<%-- uploadFile EmpVO 에 썼던 이름이랑 같아야 함 --%>
+				<input type="file" name="uploadFile" />			
+			</div>
+			<hr>
 			<fieldset>
 				<legend>직원의 기본사항</legend>
 				<ul>

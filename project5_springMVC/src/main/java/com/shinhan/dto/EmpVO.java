@@ -2,6 +2,8 @@ package com.shinhan.dto;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +26,6 @@ public class EmpVO {
 	private Double commission_pct;
 	private int manager_id;
 	private int department_id;
+	private String pic;
+	private MultipartFile uploadFile;
 }
